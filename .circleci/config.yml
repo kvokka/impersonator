@@ -2,7 +2,7 @@ version: 2.1
 defaults: &defaults
   working_directory: ~/impersonator
   docker:
-    - image: circleci/ruby:2.6.2-node-browsers
+    - image: circleci/ruby:2.7.2-node-browsers
       environment:
         BUNDLE_PATH: vendor/bundle
         PGHOST: 127.0.0.1
@@ -13,20 +13,10 @@ commands:
     steps:
       - checkout
 
-      - restore_cache:
-          keys:
-            - v1-dependencies-{{ checksum "Gemfile.lock" }}
-            # fallback to using the latest cache if no exact match is found
-            - v1-dependencies-
       - run:
           name: install dependencies
           command: |
             bundle install --jobs=4 --retry=3 --path vendor/bundle
-
-      - save_cache:
-          paths:
-            - ./vendor/bundle
-          key: v1-dependencies-{{ checksum "Gemfile.lock" }}
 
 jobs:
   tests:
@@ -43,7 +33,6 @@ jobs:
                             --format RspecJunitFormatter \
                             --out /tmp/test-results/rspec.xml \
                             --tag ~type:performance \
-                            --format progress \
                             $TEST_FILES
 
       # collect reports

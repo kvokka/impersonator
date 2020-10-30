@@ -1,8 +1,8 @@
-[![CircleCI](https://circleci.com/gh/jorgemanrubia/impersonator.svg?style=svg)](https://circleci.com/gh/jorgemanrubia/impersonator)
+[![CircleCI](https://circleci.com/gh/kvokka/impersonator.svg?style=svg)](https://circleci.com/gh/kvokka/impersonator)
 
 # Impersonator
 
-Impersonator is a Ruby library to record and replay object interactions. 
+Impersonator is a Ruby library to record and replay object interactions.
 
 When testing, you often find services that are expensive to invoke, and you need to use a [double](https://martinfowler.com/bliki/TestDouble.html) instead. Creating stubs and mocks for simple scenarios is easy, but, for complex interactions, things get messy fast. Stubbing elaborated canned response and orchestrating multiple expectations quickly degenerates in brittle tests that are hard to write and maintain.
 
@@ -11,7 +11,7 @@ Impersonator comes to the rescue. Given an object and a list of methods to imper
 - The first time each method is invoked, it will record its invocations, including passed arguments, return values, and yielded values. This is known as *record mode*.
 - The next times, it will reproduce the recorded values and will validate that the method was invoked with the same arguments, in a specific order and the exact number of times. This is known as *replay mode*.
 
-Impersonator only focuses on validating invocation signature and reproducing output values, which is perfect for many services. It won't work for services that trigger additional logic that is relevant to the test (e.g., if the method sends an email, the impersonated method won't send it). 
+Impersonator only focuses on validating invocation signature and reproducing output values, which is perfect for many services. It won't work for services that trigger additional logic that is relevant to the test (e.g., if the method sends an email, the impersonated method won't send it).
 
 Familiar with [VCR](https://github.com/vcr/vcr)? Impersonator is like VCR but for ruby objects instead of HTTP.
 
@@ -80,7 +80,7 @@ Impersonated methods will record and replay:
 
 ### Impersonate certain methods only
 
-Use `Impersonator#impersonate_methods` to impersonate certain methods only. At replay time, the impersonated object will delegate to the actual object all the methods except the impersonated ones. 
+Use `Impersonator#impersonate_methods` to impersonate certain methods only. At replay time, the impersonated object will delegate to the actual object all the methods except the impersonated ones.
 
 ```ruby
 actual_calculator = Calculator.new
@@ -146,7 +146,7 @@ However, there are some types, like `Proc`, anonymous classes, or `IO` classes l
 ```ruby
 class MyClass
   # ...
-  
+
   def init_with(coder)
     self.name = coder['name']
   end
