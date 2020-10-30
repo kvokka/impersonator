@@ -13,6 +13,7 @@ Gem::Specification.new do |spec|
                        ' when testing (just because, for http, VCR is probably what you want)'
   spec.homepage      = 'https://github.com/jorgemanrubia/impersonator'
   spec.license       = 'MIT'
+  spec.required_ruby_version = Gem::Requirement.new('>= 2.6.0')
 
   # Prevent pushing this gem to RubyGems.org. To allow pushes either set the 'allowed_push_host'
   # to allow pushing to a single host or delete this section to allow pushing to any host.

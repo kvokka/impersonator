@@ -30,7 +30,7 @@ Metrics/ParameterLists:
 Style/Documentation:
   Enabled: false
 
-Naming/UncommunicativeMethodParamName:
+Naming/MethodParameterName:
   Enabled: false
 
 RSpec/ExampleLength:
@@ -86,7 +86,7 @@ RSpec/InstanceVariable:
 Style/ModuleFunction:
   Enabled: false
 
-Lint/HandleExceptions:
+Lint/SuppressedException:
   Enabled: false
 
 RSpec/BeforeAfterAll:
@@ -120,13 +120,14 @@ Lint/UnusedMethodArgument:
 Lint/NestedMethodDefinition:
   Enabled: false
 
-Style/MethodMissingSuper:
+Lint/MissingSuper:
   Enabled: false
 
 RSpec/MultipleDescribes:
   Enabled: false
 
 AllCops:
+  TargetRubyVersion: 2.5
   Exclude:
     - "**/*.sql"
     - "recipes/**/*"

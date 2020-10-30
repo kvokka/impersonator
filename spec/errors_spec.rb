@@ -17,13 +17,13 @@ describe 'Error detection', clear_recordings: true do
   describe Impersonator::Errors::ConfigurationError do
     it 'raises an error when trying to impersonate without starting a recording' do
       expect { Impersonator.impersonate_methods(actual_calculator, :next, :previous) }
-        .to raise_error(Impersonator::Errors::ConfigurationError)
+        .to raise_error(described_class)
     end
 
     it 'raises an error when the method to impersonate does not exist' do
       Impersonator.recording('missing method') do
         expect { Impersonator.impersonate_methods(actual_calculator, :some_missing_method) }
-          .to raise_error(Impersonator::Errors::ConfigurationError)
+          .to raise_error(described_class)
       end
     end
   end
@@ -41,7 +41,7 @@ describe 'Error detection', clear_recordings: true do
         impersonator = Impersonator.impersonate_methods(actual_calculator, :next, :previous)
 
         impersonator.next
-        expect { impersonator.next }.to raise_error(Impersonator::Errors::MethodInvocationError)
+        expect { impersonator.next }.to raise_error(described_class)
       end
     end
 
@@ -55,7 +55,7 @@ describe 'Error detection', clear_recordings: true do
 
       Impersonator.recording('simple value') do
         impersonator = Impersonator.impersonate_methods(actual_calculator, :add)
-        expect { impersonator.add(3, 4) }.to raise_error(Impersonator::Errors::MethodInvocationError)
+        expect { impersonator.add(3, 4) }.to raise_error(described_class)
       end
     end
 
@@ -73,7 +73,7 @@ describe 'Error detection', clear_recordings: true do
 
         impersonator.add(1, 2, &block)
         expect { impersonator.add(1, 2, &block) }
-          .to raise_error(Impersonator::Errors::MethodInvocationError)
+          .to raise_error(described_class)
       end
     end
 
@@ -90,7 +90,7 @@ describe 'Error detection', clear_recordings: true do
         impersonator = Impersonator.impersonate_methods(actual_calculator, :add, :lineal_sequence)
 
         impersonator.add(1, 2, &block)
-        expect { impersonator.add(1, 2) }.to raise_error(Impersonator::Errors::MethodInvocationError)
+        expect { impersonator.add(1, 2) }.to raise_error(described_class)
       end
     end
   end
@@ -115,12 +115,14 @@ describe 'Error detection', clear_recordings: true do
 end
 
 describe 'dummy' do
+  # rubocop:disable RSpec/LeakyConstantDeclaration
   it 'test me' do
     class Calculator
       def add(number_1, number_2)
         number_1 + number_2
       end
     end
+    # rubocop:enable RSpec/LeakyConstantDeclaration
 
     # The first time it records...
     Impersonator.recording('calculator add') do
